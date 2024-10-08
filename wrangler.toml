@@ -80,6 +80,16 @@ pages_build_output_dir = ".svelte-kit/cloudflare"
 # [env.production.vars]
 # API_KEY = "abc123"
 
-# [[env.production.kv_namespaces]]
-# binding = "MY_KV_NAMESPACE"
-# id = "<PRODUCTION_NAMESPACE_ID>"
+[env.production.vars]
+BASE_URL = "https://graphql.anilist.co"
+
+[[env.production.kv_namespaces]]
+binding = "API_CACHE"
+id = "90e74fe0b9ab4d00b8c92bdd6daf5bd2"
+
+[env.vars]
+BASE_URL = "https://graphql.anilist.co"
+
+[[kv_namespaces]]
+binding = "API_CACHE"
+id = "90e74fe0b9ab4d00b8c92bdd6daf5bd2"
