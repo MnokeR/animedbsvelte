@@ -1,6 +1,5 @@
 <script lang="ts">
 	import Button from '$lib/components/ui/button/button.svelte';
-	import ListGrid from '$lib/components/list-grid.svelte';
 	import ListCard from '$lib/components/list-card.svelte';
 	import type { PageData } from './$types';
 	import type { Manga, Anime } from '$lib/types/query-ts';
@@ -17,42 +16,47 @@
 	}
 </script>
 
-<div class="flex justify-center gap-4">
-	<Button size="sm" disabled={anime} onclick={changeMedia}>Anime</Button>
-	<Button size="sm" disabled={manga} onclick={changeMedia}>Manga</Button>
-</div>
 {#snippet categories(categories: Categories, type: Anime | Manga)}
 	<div class="flex flex-col gap-4">
 		{#each categories as category}
-			<ListGrid heading={category.label}>
-				{#if type}
-					{#each type[category.value as keyof typeof type].media as media}
-						<ListCard
-							id={media.id}
-							title={media.title.userPreferred}
-							image={media.coverImage.large}
-							format={media.format}
-						/>
-					{/each}
-				{/if}
-			</ListGrid>
+			<div>
+				<h2 class="ml-2 mb-2">{category.label}</h2>
+				<div class="flex flex-wrap justify-evenly gap-3">
+					{#if type}
+						{#each type[category.value as keyof typeof type].media as media}
+							<ListCard
+								id={media.id}
+								title={media.title.userPreferred}
+								image={media.coverImage.large}
+								format={media.format}
+							/>
+						{/each}
+					{/if}
+				</div>
+			</div>
 		{/each}
 	</div>
 {/snippet}
 
-<div class="overflow-hidden">
+<div
+	class="mx-auto sm:max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl overflow-hidden"
+>
+	<div class="relative flex gap-4 border-b-2 border-sky-600 pl-2">
+		<Button size="sm" variant="ghost" disabled={anime} onclick={changeMedia}>Anime</Button>
+		<Button size="sm" variant="ghost" disabled={manga} onclick={changeMedia}>Manga</Button>
+	</div>
 	{#if anime && data.anime}
 		<section
-			in:fly={{ delay: 100, duration: 300, easing: cubicOut, x: '-100%', opacity: 1 }}
-			out:fly={{ delay: 0, duration: 300, easing: cubicOut, x: '-100%', opacity: 1 }}
+			in:fly={{ delay: 100, duration: 200, easing: cubicOut, x: '-100%', opacity: 1 }}
+			out:fly={{ delay: 0, duration: 200, easing: cubicOut, x: '-100%', opacity: 1 }}
 			onoutroend={() => (manga = true)}
 		>
 			{@render categories(animeCategories, data.anime)}
 		</section>
 	{:else if manga && data.manga}
 		<section
-			in:fly={{ delay: 100, duration: 300, easing: cubicOut, x: '100%', opacity: 1 }}
-			out:fly={{ delay: 0, duration: 300, easing: cubicOut, x: '100%', opacity: 1 }}
+			in:fly={{ delay: 100, duration: 200, easing: cubicOut, x: '100%', opacity: 1 }}
+			out:fly={{ delay: 0, duration: 200, easing: cubicOut, x: '100%', opacity: 1 }}
 			onoutroend={() => (anime = true)}
 		>
 			{@render categories(mangaCategories, data.manga)}

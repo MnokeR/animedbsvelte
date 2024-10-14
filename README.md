@@ -19,6 +19,7 @@ Welcome to the **AnimeDB**, a platform where users can explore trending, popular
 - **API**: Anilist GraphQL API
 - **Icons**: shadcn-svelte UI & Lucide Icons,
 - **Build Tools**: Vite
+- **Cache**: Cloudflare KV
 - **Deployment**: Cloudflare Pages
 
 ## 🚀 Live Demo
