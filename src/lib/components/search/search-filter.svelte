@@ -16,8 +16,10 @@
 		type Options
 	} from './select-options';
 	import Select from './select.svelte';
-	const path = $page.url.pathname;
-	const mediaType = $state<'Manga' | 'Anime'>(path === '/search/anime' ? 'Anime' : 'Manga');
+	type SearchFilterProps = {
+		mediaType: 'anime' | 'manga';
+	};
+	let { mediaType }: SearchFilterProps = $props();
 	const searchParams = $page.url.searchParams;
 	const setParams = (param: string, value: string | string[]) => {
 		if (value.toString() === '') {
@@ -37,21 +39,23 @@
 		setParams={debounce ? debounceSearch : setParams}
 	/>
 {/snippet}
-<section class="flex flex-wrap">
+<section class="flex flex-col items-center justify-center gap-2">
 	<div class="max-w-[400px]">
 		<Input setParams={debounceSearch} />
 	</div>
-	{@render select(selectGenres, true, true)}
-	{@render select(selectYears)}
-	{#if mediaType === 'Anime'}
-		{@render select(selectSeason)}
-		{@render select(selectAnimeFormat)}
-		{@render select(selectAnimeStatus)}
-	{/if}
-	{#if mediaType === 'Manga'}
-		{@render select(selectMangaFormat)}
-		{@render select(selectMangaStatus)}
-	{/if}
-	{@render select(selectCountry)}
-	{@render select(selectSort)}
+	<div class="flex flex-wrap gap-2 justify-center">
+		{@render select(selectGenres, true, true)}
+		{@render select(selectYears)}
+		{#if mediaType === 'anime'}
+			{@render select(selectSeason)}
+			{@render select(selectAnimeFormat)}
+			{@render select(selectAnimeStatus)}
+		{/if}
+		{#if mediaType === 'manga'}
+			{@render select(selectMangaFormat)}
+			{@render select(selectMangaStatus)}
+		{/if}
+		{@render select(selectCountry)}
+		{@render select(selectSort)}
+	</div>
 </section>

@@ -7,7 +7,8 @@
 	<div class="flex-1">
 		<a href="/" class="text-2xl"> ANIMEDB </a>
 	</div>
-	<div class="flex flex-none">
+	<div class="flex flex-none items-center">
+		<a href="/search">Search</a>
 		<Button variant="ghost" size="icon">
 			<a href="https://github.com/MnokeR/animedbsvelte" target="_blank">
 				<svg
