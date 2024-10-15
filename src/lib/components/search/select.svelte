@@ -20,10 +20,9 @@
 	let { options, multiple, setParams }: SelectProps = $props();
 	let searchParams = $page.url.searchParams;
 	let param = options.param ? options.param : options.title.toLowerCase();
-	let paramValue = searchParams.get(param);
+	let paramValue = $state(searchParams.get(param));
 
 	let value = $state<string[]>(paramValue ? [paramValue] : []);
-
 	let isActive = $derived(value.length > 0);
 	let selected = $derived.by(() => {
 		if (multiple) {

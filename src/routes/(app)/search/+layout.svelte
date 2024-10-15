@@ -14,7 +14,7 @@
 
 	const handleClick = (media: 'anime' | 'manga') => {
 		mediaType = media;
-		goto(`${media}`, { replaceState: true });
+		goto(`${media}`, { replaceState: true, invalidateAll: true });
 	};
 </script>
 

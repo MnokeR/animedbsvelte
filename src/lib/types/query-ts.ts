@@ -28,8 +28,7 @@ export type AnimeShort = {
 };
 
 export type SearchResults = {
-	media: AnimeShort[];
-	pageInfo: PageInfo;
+	data: { Page: { media: AnimeShort[]; pageInfo: PageInfo } };
 };
 
 export type PageInfo = {
