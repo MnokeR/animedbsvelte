@@ -50,16 +50,16 @@
 					/>
 				{/each}
 			{/each}
-			{#if pageInfo.hasNextPage && !loadingMoreData}
-				<div class="flex justify-center items-center my-4">
-					<InView loadMore={loadMoreData} />
-				</div>
-			{/if}
-			{#if loadingMoreData}
-				<Loader class="animate-spin" />
-			{/if}
 		{:else}
 			<p>No results</p>
 		{/if}
 	</div>
+</div>
+<div class="flex justify-center items-center my-4">
+	{#if pageInfo.hasNextPage && !loadingMoreData}
+		<InView loadMore={loadMoreData} />
+	{/if}
+	{#if loadingMoreData}
+		<Loader class="animate-spin" />
+	{/if}
 </div>
