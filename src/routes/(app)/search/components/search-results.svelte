@@ -51,7 +51,7 @@
 				{/each}
 			{/each}
 			{#if pageInfo.hasNextPage && !loadingMoreData}
-				<div class="my-4 h-[200px]">
+				<div class="flex justify-center items-center my-4">
 					<InView loadMore={loadMoreData} />
 				</div>
 			{/if}
