@@ -16,4 +16,13 @@
 	{:catch error}
 		<p class="text-red-500">Failed to load data: {error.message}</p>
 	{/await}
+{:else}
+	<div class="relative flex justify-center my-10">
+		<div
+			class="w-[511px] h-[590px] bg-center bg-no-repeat opacity-30"
+			style="background-image: url('/images/anime-search.webp');"
+		></div>
+		<span class="absolute -bottom-0 h-20 w-full bg-gradient-to-b from-transparent to-background"
+		></span>
+	</div>
 {/if}

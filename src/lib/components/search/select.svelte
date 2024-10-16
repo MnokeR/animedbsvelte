@@ -24,6 +24,7 @@
 
 	let value = $state<string[]>(paramValue ? [paramValue] : []);
 	let isActive = $derived(value.length > 0);
+
 	let selected = $derived.by(() => {
 		if (multiple) {
 			const match = options.items.filter((item) => value.includes(item.value));
@@ -59,7 +60,7 @@
 	onSelectedChange={(s) => handleSelect(s as HandleSelect)}
 >
 	<Select.Trigger class="w-[180px]" {isActive} {handleClear}>
-		<Select.Value placeholder={options.title} />
+		<Select.Value placeholder={options.title} class="text-sky-500" />
 	</Select.Trigger>
 	<Select.Content>
 		<ScrollArea>
