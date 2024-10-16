@@ -10,6 +10,7 @@
 </script>
 
 <Input
+	class="text-sky-500"
 	type="search"
 	autocomplete="off"
 	name="search"

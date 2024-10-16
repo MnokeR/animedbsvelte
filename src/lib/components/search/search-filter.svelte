@@ -20,15 +20,17 @@
 		mediaType: 'anime' | 'manga';
 	};
 	let { mediaType }: SearchFilterProps = $props();
-	const searchParams = $page.url.searchParams;
+	const searchParams = $state($page.url.searchParams);
+
 	const setParams = (param: string, value: string | string[]) => {
 		if (value.toString() === '') {
 			searchParams.delete(param);
 		} else {
 			searchParams.set(param, value.toString());
 		}
-		goto(`?${searchParams.toString()}`, { invalidateAll: true });
+		goto(`?${searchParams.toString()}`, { keepFocus: true, invalidateAll: true });
 	};
+
 	const debounceSearch = debounce(setParams, 600);
 </script>
 

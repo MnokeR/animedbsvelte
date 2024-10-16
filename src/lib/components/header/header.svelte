@@ -1,6 +1,9 @@
 <script lang="ts">
 	import Button from '$lib/components/ui/button/button.svelte';
+	import Search from 'lucide-svelte/icons/search';
+	import Home from 'lucide-svelte/icons/house';
 	import Theme from './theme.svelte';
+	import { goto } from '$app/navigation';
 </script>
 
 <header class="flex items-center bg-secondary px-4 h-14">
@@ -8,8 +11,13 @@
 		<a href="/" class="text-2xl"> ANIMEDB </a>
 	</div>
 	<div class="flex flex-none items-center">
-		<a href="/search">Search</a>
-		<Button variant="ghost" size="icon">
+		<Button aria-label="Home Page" variant="ghost" size="icon" onclick={() => goto('/')}
+			><Home class="w-5 h-5" /></Button
+		>
+		<Button aria-label="Search Page" variant="ghost" size="icon" onclick={() => goto('/search')}
+			><Search class="w-5 h-5" /></Button
+		>
+		<Button aria-label="External link to Github Page" variant="ghost" size="icon">
 			<a href="https://github.com/MnokeR/animedbsvelte" target="_blank">
 				<svg
 					class="w-5 h-5 fill-foreground"

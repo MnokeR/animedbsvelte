@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
-	import SearchFilter from '$lib/components/search/search-filter.svelte';
 	import Button from '$lib/components/ui/button/button.svelte';
 	import type { Snippet } from 'svelte';
 
@@ -34,6 +33,5 @@
 		>
 	</div>
 </div>
-<SearchFilter {mediaType} />
 
 {@render children()}

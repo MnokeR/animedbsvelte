@@ -16,6 +16,11 @@
 	}
 </script>
 
+<svelte:head>
+	<title>Anime DB Svelte</title>
+	<meta name="description" content="Anime DB build using Svelte 5" />
+</svelte:head>
+
 {#snippet categories(categories: Categories, type: Anime | Manga)}
 	<div class="flex flex-col gap-4">
 		{#each categories as category}

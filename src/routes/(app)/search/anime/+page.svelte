@@ -2,10 +2,16 @@
 	import Loader from 'lucide-svelte/icons/loader';
 	import SearchResults from '../components/search-results.svelte';
 	import type { LayoutData } from '../$types';
+	import SearchFilter from '$lib/components/search/search-filter.svelte';
 
 	let { data }: { data: LayoutData } = $props();
 </script>
 
+<svelte:head>
+	<title>Anime DB | Search Anime</title>
+	<meta name="description" content="Discover new Animes or search for your favorites!" />
+</svelte:head>
+<SearchFilter mediaType="anime" />
 {#if data.data}
 	{#await data.data}
 		<div class="flex justify-center my-4">
