@@ -109,7 +109,7 @@ const mangaOptions = {
 	})
 };
 
-const cacheTTL = 60 * 30;
+const cacheTTL = 60 * 60;
 
 export default {
 	async fetch(request: Request, env: Env): Promise<Response> {
@@ -124,11 +124,8 @@ export default {
 		const cachedMangaData = await apiCache.get(cacheKeys.manga);
 
 		if (cachedAnimeData && cachedMangaData) {
-			const responseData = {
-				anime: JSON.parse(cachedAnimeData),
-				manga: JSON.parse(cachedMangaData)
-			};
-			return new Response(JSON.stringify(responseData), {
+			const responseData = `{"anime": ${cachedAnimeData}, "manga": ${cachedMangaData}}`;
+			return new Response(responseData, {
 				status: 200,
 				headers: { 'Content-Type': 'application/json' }
 			});

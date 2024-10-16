@@ -6,7 +6,7 @@
 	import { type Categories, animeCategories, mangaCategories } from '$lib/client/utils';
 	import { fly } from 'svelte/transition';
 	import { cubicOut } from 'svelte/easing';
-
+	import Loader from '$lib/components/loader.svelte';
 	let { data }: { data: PageData } = $props();
 	let anime = $state(true),
 		manga = $state<boolean>();
@@ -43,28 +43,32 @@
 	</div>
 {/snippet}
 
-<div
-	class="mx-auto sm:max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl overflow-hidden"
->
-	<div class="relative flex gap-4 border-b-2 border-sky-500 pl-2 my-4">
-		<Button size="sm" variant="ghost" disabled={anime} onclick={changeMedia}>Anime</Button>
-		<Button size="sm" variant="ghost" disabled={manga} onclick={changeMedia}>Manga</Button>
+{#await data.data}
+	<Loader />
+{:then data}
+	<div
+		class="mx-auto sm:max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl overflow-hidden"
+	>
+		<div class="relative flex gap-4 border-b-2 border-sky-500 pl-2 my-4">
+			<Button size="sm" variant="ghost" disabled={anime} onclick={changeMedia}>Anime</Button>
+			<Button size="sm" variant="ghost" disabled={manga} onclick={changeMedia}>Manga</Button>
+		</div>
+		{#if anime && data?.anime.data}
+			<section
+				in:fly={{ delay: 100, duration: 200, easing: cubicOut, x: '-100%', opacity: 1 }}
+				out:fly={{ delay: 0, duration: 200, easing: cubicOut, x: '-100%', opacity: 1 }}
+				onoutroend={() => (manga = true)}
+			>
+				{@render categories(animeCategories, data.anime.data)}
+			</section>
+		{:else if manga && data?.manga.data}
+			<section
+				in:fly={{ delay: 100, duration: 200, easing: cubicOut, x: '100%', opacity: 1 }}
+				out:fly={{ delay: 0, duration: 200, easing: cubicOut, x: '100%', opacity: 1 }}
+				onoutroend={() => (anime = true)}
+			>
+				{@render categories(mangaCategories, data.manga.data)}
+			</section>
+		{/if}
 	</div>
-	{#if anime && data.anime}
-		<section
-			in:fly={{ delay: 100, duration: 200, easing: cubicOut, x: '-100%', opacity: 1 }}
-			out:fly={{ delay: 0, duration: 200, easing: cubicOut, x: '-100%', opacity: 1 }}
-			onoutroend={() => (manga = true)}
-		>
-			{@render categories(animeCategories, data.anime)}
-		</section>
-	{:else if manga && data.manga}
-		<section
-			in:fly={{ delay: 100, duration: 200, easing: cubicOut, x: '100%', opacity: 1 }}
-			out:fly={{ delay: 0, duration: 200, easing: cubicOut, x: '100%', opacity: 1 }}
-			onoutroend={() => (anime = true)}
-		>
-			{@render categories(mangaCategories, data.manga)}
-		</section>
-	{/if}
-</div>
+{/await}

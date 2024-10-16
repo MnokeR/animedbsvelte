@@ -5,7 +5,7 @@
 	import { getParams, searchOptions } from '$lib/client/utils';
 	import type { SearchResults } from '$lib/types/query-ts';
 	import InView from '$lib/components/inView.svelte';
-	import Loader from 'lucide-svelte/icons/loader';
+	import Loader from '$lib/components/loader.svelte';
 
 	let { data }: { data: SearchResults } = $props();
 
@@ -55,11 +55,10 @@
 		{/if}
 	</div>
 </div>
-<div class="flex justify-center items-center my-4">
-	{#if pageInfo.hasNextPage && !loadingMoreData}
-		<InView loadMore={loadMoreData} />
-	{/if}
-	{#if loadingMoreData}
-		<Loader class="animate-spin" />
-	{/if}
-</div>
+
+{#if pageInfo.hasNextPage && !loadingMoreData}
+	<InView loadMore={loadMoreData} />
+{/if}
+{#if loadingMoreData}
+	<Loader />
+{/if}

@@ -1,8 +1,8 @@
 <script lang="ts">
-	import Loader from 'lucide-svelte/icons/loader';
 	import SearchResults from '../components/search-results.svelte';
 	import type { LayoutData } from '../$types';
 	import SearchFilter from '$lib/components/search/search-filter.svelte';
+	import Loader from '$lib/components/loader.svelte';
 
 	let { data }: { data: LayoutData } = $props();
 </script>
@@ -14,9 +14,7 @@
 <SearchFilter mediaType="anime" />
 {#if data.data}
 	{#await data.data}
-		<div class="flex justify-center my-4">
-			<Loader class="text-slate-500 text-center animate-spin" />
-		</div>
+		<Loader />
 	{:then result}
 		<SearchResults data={result} />
 	{:catch error}
