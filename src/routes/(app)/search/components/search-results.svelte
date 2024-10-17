@@ -35,25 +35,21 @@
 	});
 </script>
 
-<div
-	class="mx-auto sm:max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl overflow-hidden"
->
-	<div class="flex flex-wrap justify-evenly gap-3 my-4">
-		{#if searchResults[0].length}
-			{#each searchResults as results}
-				{#each results as result}
-					<ListCard
-						id={result.id}
-						title={result.title.userPreferred}
-						image={result.coverImage.large}
-						format={result.format}
-					/>
-				{/each}
+<div class="flex flex-wrap justify-evenly gap-3 my-4">
+	{#if searchResults[0].length}
+		{#each searchResults as results}
+			{#each results as result}
+				<ListCard
+					id={result.id}
+					title={result.title.userPreferred}
+					image={result.coverImage.large}
+					format={result.format}
+				/>
 			{/each}
-		{:else}
-			<p>No results</p>
-		{/if}
-	</div>
+		{/each}
+	{:else}
+		<p>No results</p>
+	{/if}
 </div>
 
 {#if pageInfo.hasNextPage && !loadingMoreData}

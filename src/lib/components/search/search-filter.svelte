@@ -41,11 +41,9 @@
 		setParams={debounce ? debounceSearch : setParams}
 	/>
 {/snippet}
-<section class="flex flex-col items-center justify-center gap-2">
-	<div class="max-w-[400px]">
+<div class="bg-secondary/40 p-2 border border-border">
+	<div class="flex flex-wrap gap-2 justify-center md:justify-stretch items-center">
 		<Input setParams={debounceSearch} />
-	</div>
-	<div class="flex flex-wrap gap-2 justify-center">
 		{@render select(selectGenres, true, true)}
 		{@render select(selectYears)}
 		{#if mediaType === 'anime'}
@@ -60,4 +58,4 @@
 		{@render select(selectCountry)}
 		{@render select(selectSort)}
 	</div>
-</section>
+</div>

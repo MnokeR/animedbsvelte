@@ -17,7 +17,9 @@
 	};
 </script>
 
-<div class="max-w-screen-xl mx-auto">
+<div
+	class="mx-auto sm:max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl overflow-hidden"
+>
 	<div class="relative flex gap-4 border-b-2 border-sky-500 pl-2 my-4">
 		<Button
 			size="sm"
