@@ -3,6 +3,7 @@
 	import type { LayoutData } from '../$types';
 	import SearchFilter from '$lib/components/search/search-filter.svelte';
 	import Loader from '$lib/components/loader.svelte';
+	import SearchBg from '$lib/svg/search-bg.svelte';
 
 	let { data }: { data: LayoutData } = $props();
 </script>
@@ -22,11 +23,6 @@
 	{/await}
 {:else}
 	<div class="relative flex justify-center my-10">
-		<div
-			class="w-[511px] h-[590px] bg-center bg-no-repeat opacity-30"
-			style="background-image: url('/images/anime-search.webp');"
-		></div>
-		<span class="absolute -bottom-0 h-20 w-full bg-gradient-to-b from-transparent to-background"
-		></span>
+		<SearchBg class="fill-muted-foreground/60 max-h-[60vh]" />
 	</div>
 {/if}
