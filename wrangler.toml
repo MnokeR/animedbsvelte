@@ -9,3 +9,6 @@ BASE_URL = "https://graphql.anilist.co"
 [[kv_namespaces]]
 binding = "API_CACHE"
 id = "90e74fe0b9ab4d00b8c92bdd6daf5bd2"
+
+[observability]
+enabled = true

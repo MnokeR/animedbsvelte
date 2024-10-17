@@ -43,16 +43,17 @@
 	</div>
 {/snippet}
 
-{#await data.data}
-	<Loader />
-{:then data}
-	<div
-		class="mx-auto sm:max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl overflow-hidden"
-	>
-		<div class="relative flex gap-4 border-b-2 border-sky-500 pl-2 my-4">
-			<Button size="sm" variant="ghost" disabled={anime} onclick={changeMedia}>Anime</Button>
-			<Button size="sm" variant="ghost" disabled={manga} onclick={changeMedia}>Manga</Button>
-		</div>
+<div
+	class="mx-auto sm:max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl overflow-hidden"
+>
+	<div class="relative flex gap-4 border-b-2 border-sky-500 pl-2 my-4">
+		<Button size="sm" variant="ghost" disabled={anime} onclick={changeMedia}>Anime</Button>
+		<Button size="sm" variant="ghost" disabled={manga} onclick={changeMedia}>Manga</Button>
+	</div>
+	{#await data.data}
+		<Loader />
+	{:then data}
+		{console.log(data)}
 		{#if anime && data?.anime.data}
 			<section
 				in:fly={{ delay: 100, duration: 200, easing: cubicOut, x: '-100%', opacity: 1 }}
@@ -70,5 +71,5 @@
 				{@render categories(mangaCategories, data.manga.data)}
 			</section>
 		{/if}
-	</div>
-{/await}
+	{/await}
+</div>
