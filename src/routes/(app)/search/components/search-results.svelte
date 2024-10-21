@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import ListCard from '$lib/components/list-card.svelte';
-	import { BASE_URL } from '$lib/client/querys';
+	import { PUBLIC_BASE_URL } from '$env/static/public';
 	import { getParams, searchOptions } from '$lib/client/utils';
 	import type { SearchResults } from '$lib/types/query-ts';
 	import InView from '$lib/components/inView.svelte';
@@ -21,7 +21,7 @@
 		loadingMoreData = true;
 		const params = getParams(searchParams);
 		const loadMoreOption = searchOptions({ mediaType, params, pageInfo });
-		const response = await fetch(BASE_URL, loadMoreOption);
+		const response = await fetch(PUBLIC_BASE_URL, loadMoreOption);
 		const data: SearchResults = await response.json();
 		pageInfo = data.data.Page.pageInfo;
 		searchResults.push(data.data.Page.media);

@@ -4,6 +4,7 @@ import type { SearchResults } from '$lib/types/query-ts';
 import type { LayoutLoad } from './$types';
 
 export const load: LayoutLoad = async ({ url, fetch }) => {
+	console.log(url);
 	const URL = PUBLIC_BASE_URL;
 	const searchParams = url.searchParams;
 	const path = url.pathname;
