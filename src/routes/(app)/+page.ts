@@ -1,9 +1,9 @@
-import { env } from '$env/dynamic/private';
+import { PUBLIC_WORKER_URL } from '$env/static/public';
 import type { Anime, Manga } from '$lib/types/query-ts';
 import type { PageLoad } from './$types';
 
 export const load: PageLoad = async ({ fetch }) => {
-	const workerUrl = env.WORKER_URL;
+	const workerUrl = PUBLIC_WORKER_URL;
 
 	try {
 		const response = await fetch(workerUrl);

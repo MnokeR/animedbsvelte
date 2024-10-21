@@ -1,10 +1,10 @@
-import { env } from '$env/dynamic/private';
+import { PUBLIC_BASE_URL } from '$env/static/public';
 import { searchOptions, getParams } from '$lib/client/utils';
 import type { SearchResults } from '$lib/types/query-ts';
 import type { LayoutLoad } from './$types';
 
 export const load: LayoutLoad = async ({ url, fetch }) => {
-	const URL = env.BASE_URL;
+	const URL = PUBLIC_BASE_URL;
 	const searchParams = url.searchParams;
 	const path = url.pathname;
 	const hasParams = [...searchParams.keys()].length > 0;
