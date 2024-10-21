@@ -1,8 +1,9 @@
+import { env } from '$env/dynamic/private';
 import type { Anime, Manga } from '$lib/types/query-ts';
-import type { ServerLoad } from '@sveltejs/kit';
+import type { PageLoad } from './$types';
 
-export const load: ServerLoad = async () => {
-	const workerUrl = 'https://animedbsvelte.mnoker.workers.dev';
+export const load: PageLoad = async ({ fetch }) => {
+	const workerUrl = env.WORKER_URL;
 
 	try {
 		const response = await fetch(workerUrl);

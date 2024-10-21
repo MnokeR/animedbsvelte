@@ -142,7 +142,7 @@ export default {
 		}
 		return new Response(JSON.stringify({ anime: animeData, manga: mangaData }), {
 			status: 200,
-			headers: { 'Content-Type': 'application/json' }
+			headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' }
 		});
 	}
 };

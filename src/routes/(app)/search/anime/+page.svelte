@@ -1,11 +1,10 @@
 <script lang="ts">
 	import SearchResults from '../components/search-results.svelte';
-	import type { LayoutData } from '../$types';
 	import SearchFilter from '$lib/components/search/search-filter.svelte';
 	import Loader from '$lib/components/loader.svelte';
 	import SearchBg from '$lib/svg/search-bg.svelte';
 
-	let { data }: { data: LayoutData } = $props();
+	let { data } = $props();
 </script>
 
 <svelte:head>
@@ -23,6 +22,6 @@
 	{/await}
 {:else}
 	<div class="relative flex justify-center my-10">
-		<SearchBg class="fill-muted-foreground/60 max-h-[60vh]" />
+		<SearchBg />
 	</div>
 {/if}

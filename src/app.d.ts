@@ -5,6 +5,7 @@ declare global {
 		interface Platform {
 			env: {
 				BASE_URL: string;
+				WORKER_URL: string;
 				API_CACHE: KVNamespace;
 			};
 			cf: CfProperties;

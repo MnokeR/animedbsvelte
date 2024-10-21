@@ -1,13 +1,13 @@
 <script lang="ts">
 	import Button from '$lib/components/ui/button/button.svelte';
 	import ListCard from '$lib/components/list-card.svelte';
-	import type { PageData } from './$types';
 	import type { Manga, Anime } from '$lib/types/query-ts';
 	import { type Categories, animeCategories, mangaCategories } from '$lib/client/utils';
 	import { fly } from 'svelte/transition';
 	import { cubicOut } from 'svelte/easing';
 	import Loader from '$lib/components/loader.svelte';
-	let { data }: { data: PageData } = $props();
+
+	let { data } = $props();
 	let anime = $state(true),
 		manga = $state<boolean>();
 
@@ -50,7 +50,6 @@
 {#await data.data}
 	<Loader />
 {:then data}
-	{console.log(data)}
 	{#if anime && data?.anime.data}
 		<section
 			in:fly={{ delay: 100, duration: 200, easing: cubicOut, x: '-100%', opacity: 1 }}
