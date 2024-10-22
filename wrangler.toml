@@ -4,8 +4,8 @@ compatibility_date = "2024-10-04"
 pages_build_output_dir = ".svelte-kit/cloudflare"
 
 [vars]
-BASE_URL = "https://graphql.anilist.co"
-WORKER_URL = "https://animedbsvelte.mnoker.workers.dev"
+PUBLIC_BASE_URL = "https://graphql.anilist.co"
+PUBLIC_WORKER_URL = "https://animedbsvelte.mnoker.workers.dev"
 
 [[kv_namespaces]]
 binding = "API_CACHE"
