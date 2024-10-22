@@ -59,7 +59,12 @@
 	portal={null}
 	onSelectedChange={(s) => handleSelect(s as HandleSelect)}
 >
-	<Select.Trigger class="w-[200px] sm:w-[150px]" {isActive} {handleClear}>
+	<Select.Trigger
+		class="w-[200px] sm:w-[150px]"
+		{isActive}
+		{handleClear}
+		aria-label={`Filter by ${param}`}
+	>
 		<Select.Value placeholder={options.title} class="text-sky-500" />
 	</Select.Trigger>
 	<Select.Content>

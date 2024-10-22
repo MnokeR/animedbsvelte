@@ -1,5 +1,4 @@
 <script lang="ts">
-	import Button from '$lib/components/ui/button/button.svelte';
 	import Search from 'lucide-svelte/icons/search';
 	import Home from 'lucide-svelte/icons/house';
 	import Theme from './theme.svelte';
@@ -21,17 +20,29 @@
 
 <header class="flex items-center bg-secondary px-4 h-14">
 	<div class="flex-1">
-		<a href="/" class="text-2xl"> ANIMEDB </a>
+		<a href="/" class="text-2xl"> ANIMEDB</a>
 	</div>
 	<div class="flex flex-none items-center">
-		{#each links as link}<a href={link.path}>
-				<Button aria-label={`${link.label} page`} variant="ghost" size="icon"
-					><link.icon class="w-5 h-5 {isActive(link.path) ? 'text-sky-500' : ''}" /></Button
-				></a
-			>
+		{#each links as link}
+			<!-- <Button
+				aria-label={`${link.label} page`}
+				variant="ghost"
+				size="icon"
+				onclick={() => goto(link.path)}
+				> -->
+			<div class="p-2">
+				<a href={link.path} aria-label={`Path to ${link.label}`}>
+					<link.icon class="w-5 h-5 {isActive(link.path) ? 'text-sky-500' : ''}" />
+				</a>
+			</div>
+			<!-- </Button> -->
 		{/each}
-		<Button aria-label="External link to Github Page" variant="ghost" size="icon">
-			<a href="https://github.com/MnokeR/animedbsvelte" target="_blank">
+		<div class="p-2">
+			<a
+				href="https://github.com/MnokeR/animedbsvelte"
+				aria-label="Link to github page"
+				target="_blank"
+			>
 				<svg
 					class="w-5 h-5 fill-foreground"
 					role="img"
@@ -43,7 +54,7 @@
 					/>
 				</svg></a
 			>
-		</Button>
+		</div>
 		<Theme />
 	</div>
 </header>

@@ -24,6 +24,8 @@
 			<img
 				src={image}
 				alt={`${title} cover`}
+				width="282"
+				height="200"
 				class="object-cover h-full w-full {imagesLoaded ? 'visble' : 'hidden'}"
 				onload={() => (imagesLoaded = true)}
 				transition:scale
