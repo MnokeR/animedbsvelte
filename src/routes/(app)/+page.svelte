@@ -25,7 +25,14 @@
 	<div class="flex flex-col gap-4">
 		{#each categories as category}
 			<div>
-				<h2 class="ml-2 mb-2">{category.label}</h2>
+				<div class="m-2 flex justify-between items-center">
+					<h2 class="text-lg font-semibold text-muted-foreground">{category.label}</h2>
+					<a
+						href={category.path}
+						class="opacity-80 hover:opacity-100 transition-opacity duration-150 ease-in-out text-sky-500"
+						>View All</a
+					>
+				</div>
 				<div class="flex flex-wrap justify-evenly gap-3">
 					{#if type}
 						{#each type[category.value as keyof typeof type].media as media}

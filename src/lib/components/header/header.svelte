@@ -15,7 +15,6 @@
 		}
 		return path.includes(linkPath);
 	};
-	$inspect(path);
 </script>
 
 <header class="flex items-center bg-secondary px-4 h-14">
@@ -24,18 +23,11 @@
 	</div>
 	<div class="flex flex-none items-center">
 		{#each links as link}
-			<!-- <Button
-				aria-label={`${link.label} page`}
-				variant="ghost"
-				size="icon"
-				onclick={() => goto(link.path)}
-				> -->
 			<div class="p-2">
 				<a href={link.path} aria-label={`Path to ${link.label}`}>
 					<link.icon class="w-5 h-5 {isActive(link.path) ? 'text-sky-500' : ''}" />
 				</a>
 			</div>
-			<!-- </Button> -->
 		{/each}
 		<div class="p-2">
 			<a
