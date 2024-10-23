@@ -6,8 +6,10 @@ export const load: PageLoad = async ({ fetch }) => {
 	const workerUrl = PUBLIC_WORKER_URL;
 
 	try {
-		const response = await fetch(workerUrl);
+		const response = await fetch('/');
 		if (!response.ok) {
+			console.error('Fetch error details:', response.statusText);
+
 			throw new Error(`Failed to fetch data: ${response.statusText}`);
 		}
 		const responseData: Promise<{ anime: { data: Anime }; manga: { data: Manga } }> =
