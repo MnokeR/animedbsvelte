@@ -44,105 +44,139 @@ const cacheTTL = 60 * 60;
 
 export default {
 	async fetch(request: Request, env: Env): Promise<Response> {
+		const url = new URL(requst.url);
 		const apiCache = env.API_CACHE;
-		const cacheKeys = { anime: 'anime_data', manga: 'manga_data' };
-
-		const date = new Date();
-		const seasons = [
-			{ label: 'WINTER', months: [1, 2, 3] },
-			{ label: 'SPRING', months: [4, 5, 6] },
-			{ label: 'SUMMER', months: [7, 8, 9] },
-			{ label: 'FALL', months: [10, 11, 12] }
-		];
-
-		let season: string = '';
-		let nextSeason: string = '';
-		let nextYear: number = 0;
-		const currentMonth = date.getMonth() + 1;
-		const year = date.getFullYear();
-		for (let i = 0; i < seasons.length; i++) {
-			if (seasons[i].months.includes(currentMonth)) {
-				season = seasons[i].label;
-				const currentIndex = i;
-				const nextIndex = currentIndex === seasons.length - 1 ? 0 : currentIndex + 1;
-				nextSeason = seasons[nextIndex].label;
-				nextYear = currentIndex === seasons.length - 1 ? year + 1 : year;
-				break;
-			}
-		}
-
-		const animeVariables = {
-			type: 'ANIME',
-			season: season,
-			seasonYear: year,
-			nextSeason: nextSeason,
-			nextYear: nextYear
-		};
-
-		const animeOptions = {
-			method: 'post',
-			headers: {
-				'Content-Type': 'application/json',
-				accept: 'application/json',
-				'Cache-Control': 'public, max-age=60'
-			},
-			body: JSON.stringify({
-				query: animeQuery,
-				variables: animeVariables
-			})
-		};
-
-		const mangaVariables = {
-			type: 'MANGA',
-			season: season,
-			seasonYear: year,
-			nextSeason: nextSeason,
-			nextYear: nextYear
-		};
-
-		const mangaOptions = {
-			method: 'post',
-			headers: {
-				'Content-Type': 'application/json',
-				accept: 'application/json',
-				'Cache-Control': 'public, max-age=60'
-			},
-			body: JSON.stringify({
-				query: mangaQuery,
-				variables: mangaVariables
-			})
-		};
+		const BASE_URL = env.PUBLIC_BASE_URL;
 
 		if (!apiCache) {
 			return new Response('API_CACHE is not defined', { status: 500 });
 		}
 
-		const cachedAnimeData = await apiCache.get(cacheKeys.anime);
-		const cachedMangaData = await apiCache.get(cacheKeys.manga);
+		if (url.pathname === '/') {
+			const cacheKeys = { anime: 'anime_data', manga: 'manga_data' };
 
-		let animeData: { data: Anime } = cachedAnimeData ? JSON.parse(cachedAnimeData) : undefined;
-		let mangaData: { data: Manga } = cachedMangaData ? JSON.parse(cachedMangaData) : undefined;
+			const date = new Date();
+			const seasons = [
+				{ label: 'WINTER', months: [1, 2, 3] },
+				{ label: 'SPRING', months: [4, 5, 6] },
+				{ label: 'SUMMER', months: [7, 8, 9] },
+				{ label: 'FALL', months: [10, 11, 12] }
+			];
 
-		try {
-			if (!animeData) {
-				const animeResponse = await fetch(env.BASE_URL, animeOptions);
-				if (!animeResponse.ok) throw new Response('Failed to fetch anime data');
-				animeData = await animeResponse.json();
-				await apiCache.put(cacheKeys.anime, JSON.stringify(animeData), { expirationTtl: cacheTTL });
+			let season: string = '';
+			let nextSeason: string = '';
+			let nextYear: number = 0;
+			const currentMonth = date.getMonth() + 1;
+			const year = date.getFullYear();
+			for (let i = 0; i < seasons.length; i++) {
+				if (seasons[i].months.includes(currentMonth)) {
+					season = seasons[i].label;
+					const currentIndex = i;
+					const nextIndex = currentIndex === seasons.length - 1 ? 0 : currentIndex + 1;
+					nextSeason = seasons[nextIndex].label;
+					nextYear = currentIndex === seasons.length - 1 ? year + 1 : year;
+					break;
+				}
 			}
 
-			if (!mangaData) {
-				const mangaResponse = await fetch(env.BASE_URL, mangaOptions);
-				if (!mangaResponse.ok) throw new Response('Failed to fetch manga data');
-				mangaData = await mangaResponse.json();
-				await apiCache.put(cacheKeys.manga, JSON.stringify(mangaData), { expirationTtl: cacheTTL });
+			const animeVariables = {
+				type: 'ANIME',
+				season: season,
+				seasonYear: year,
+				nextSeason: nextSeason,
+				nextYear: nextYear
+			};
+
+			const animeOptions = {
+				method: 'post',
+				headers: {
+					'Content-Type': 'application/json',
+					accept: 'application/json',
+					'Cache-Control': 'public, max-age=60'
+				},
+				body: JSON.stringify({
+					query: animeQuery,
+					variables: animeVariables
+				})
+			};
+
+			const mangaVariables = {
+				type: 'MANGA',
+				season: season,
+				seasonYear: year,
+				nextSeason: nextSeason,
+				nextYear: nextYear
+			};
+
+			const mangaOptions = {
+				method: 'post',
+				headers: {
+					'Content-Type': 'application/json',
+					accept: 'application/json',
+					'Cache-Control': 'public, max-age=60'
+				},
+				body: JSON.stringify({
+					query: mangaQuery,
+					variables: mangaVariables
+				})
+			};
+
+			const cachedAnimeData = await apiCache.get(cacheKeys.anime);
+			const cachedMangaData = await apiCache.get(cacheKeys.manga);
+
+			let animeData: { data: Anime } = cachedAnimeData ? JSON.parse(cachedAnimeData) : undefined;
+			let mangaData: { data: Manga } = cachedMangaData ? JSON.parse(cachedMangaData) : undefined;
+
+			try {
+				if (!animeData) {
+					const animeResponse = await fetch(BASE_URL, animeOptions);
+					if (!animeResponse.ok) throw new Response('Failed to fetch anime data');
+					animeData = await animeResponse.json();
+					await apiCache.put(cacheKeys.anime, JSON.stringify(animeData), {
+						expirationTtl: cacheTTL
+					});
+				}
+
+				if (!mangaData) {
+					const mangaResponse = await fetch(BASE_URL, mangaOptions);
+					if (!mangaResponse.ok) throw new Response('Failed to fetch manga data');
+					mangaData = await mangaResponse.json();
+					await apiCache.put(cacheKeys.manga, JSON.stringify(mangaData), {
+						expirationTtl: cacheTTL
+					});
+				}
+			} catch (error) {
+				return new Response(`Error fetching data: ${error.message}`, { status: 500 });
 			}
-		} catch (error) {
-			return new Response(`Error fetching data: ${error.message}`, { status: 500 });
+			return new Response(JSON.stringify({ anime: animeData, manga: mangaData }), {
+				status: 200,
+				headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' }
+			});
 		}
-		return new Response(JSON.stringify({ anime: animeData, manga: mangaData }), {
-			status: 200,
-			headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' }
-		});
+
+		if (url.pathname.includes('/search/')) {
+			const searchOptions = await request.json();
+			const url = new URL(request.url);
+			const cacheKey = url.toString();
+
+			const cachedSearchQuery = await apiCache.get(cacheKey);
+
+			let searchData = cachedSearchQuery ? cachedSearchQuery : undefined;
+
+			try {
+				if (!searchData) {
+					const response = await fetch(BASE_URL, searchOptions);
+					if (!response.ok) throw new Response('Failed to fetch search data');
+					searchData = await response.json();
+					await apiCache.put(cacheKey, JSON.stringify(searchData), { expirationTtl: cacheTtl });
+				}
+			} catch (error) {
+				return new Response(`Error fetching data: ${error.message}`, { status: 500 });
+			}
+			return new Response(JSON.stringify(searchData), {
+				status: 200,
+				headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' }
+			});
+		}
 	}
 };

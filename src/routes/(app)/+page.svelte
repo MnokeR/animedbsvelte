@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { PUBLIC_WORKER_URL } from '$env/static/public';
 	import Button from '$lib/components/ui/button/button.svelte';
 	import ListCard from '$lib/components/list-card.svelte';
 	import type { Manga, Anime } from '$lib/types/query-ts';
@@ -18,6 +19,7 @@
 
 <svelte:head>
 	<title>Anime DB Svelte</title>
+	<link rel="preconnect" href={PUBLIC_WORKER_URL} />
 	<meta name="description" content="Anime DB build using Svelte 5" />
 </svelte:head>
 
