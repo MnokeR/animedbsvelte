@@ -51,7 +51,6 @@
 		{/each}
 	</div>
 {/snippet}
-
 <div class="relative flex gap-4 border-b-2 border-sky-500 pl-2 my-4">
 	<Button size="sm" variant="ghost" disabled={anime} onclick={changeMedia}>Anime</Button>
 	<Button size="sm" variant="ghost" disabled={manga} onclick={changeMedia}>Manga</Button>
