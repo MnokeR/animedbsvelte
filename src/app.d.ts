@@ -4,8 +4,8 @@ declare global {
 	namespace App {
 		interface Platform {
 			env: {
-				BASE_URL: string;
-				WORKER_URL: string;
+				PUBLIC_BASE_URL: string;
+				PUBLIC_WORKER_URL: string;
 				API_CACHE: KVNamespace;
 			};
 			cf: CfProperties;

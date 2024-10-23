@@ -1,4 +1,4 @@
-import { PUBLIC_WORKER_URL, PUBLIC_BASE_URL } from '$env/static/public';
+import { PUBLIC_WORKER_URL } from '$env/static/public';
 import { searchOptions, getParams } from '$lib/client/utils';
 import type { SearchResults } from '$lib/types/query-ts';
 import type { LayoutLoad } from './$types';
