@@ -5,6 +5,7 @@ pages_build_output_dir = ".svelte-kit/cloudflare"
 
 [vars]
 PUBLIC_BASE_URL = "https://graphql.anilist.co"
+PUBLIC_WORKER_URL = "https://animedbsvelte.mnoker.workers.dev"
 
 [[kv_namespaces]]
 binding = "API_CACHE"
