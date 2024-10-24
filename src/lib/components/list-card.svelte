@@ -16,9 +16,7 @@
 </script>
 
 <div class="flex flex-col">
-	<div
-		class="w-[180px] h-[254px] sm:w-[186px] sm:h-[262px] md:w-[200px] md:h-[282px] lg:w-[156px] lg:h-[220px] xl:w-[200px] xl:h-[282px] transition-all duration-200 ease-in-out flex flex-col"
-	>
+	<div class="flex flex-col">
 		{#if !imagesLoaded}
 			<Skeleton class="w-full h-full" />
 		{/if}
@@ -29,7 +27,9 @@
 					alt={`${title} cover`}
 					width="282"
 					height="200"
-					class="object-cover h-full w-full {imagesLoaded ? 'visble' : 'hidden'}"
+					class="object-cover w-[180px] h-[254px] sm:w-[186px] sm:h-[262px] md:w-[200px] md:h-[282px] lg:w-[156px] lg:h-[220px] xl:w-[200px] xl:h-[282px] {imagesLoaded
+						? 'visble'
+						: 'hidden'}"
 					onload={() => (imagesLoaded = true)}
 					transition:scale
 				/></a
