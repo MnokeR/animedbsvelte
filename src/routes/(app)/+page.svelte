@@ -41,6 +41,7 @@
 								title={media.title.userPreferred}
 								image={media.coverImage.large}
 								format={media.format}
+								type={media.type}
 							/>
 						{/each}
 					{/if}

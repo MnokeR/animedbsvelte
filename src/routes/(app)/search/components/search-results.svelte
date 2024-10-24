@@ -44,6 +44,7 @@
 					title={result.title.userPreferred}
 					image={result.coverImage.large}
 					format={result.format}
+					type={result.type}
 				/>
 			{/each}
 		{/each}

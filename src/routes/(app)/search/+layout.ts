@@ -26,5 +26,6 @@ export const load: LayoutLoad = async ({ fetch, url }) => {
 		return { data: promiseData };
 	} catch (error) {
 		console.error('Error fetching media data:', error);
+		return { data: null };
 	}
 };

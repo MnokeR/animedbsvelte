@@ -140,3 +140,13 @@ export const getParams = (searchParam: URLSearchParams) => {
 	});
 	return searchParams;
 };
+
+export const reFormat = (string: string) => {
+	if (string.length <= 2) return string;
+	const removeSpecialCharacter = string.replace(/[_-]/g, ' ');
+	return removeSpecialCharacter
+		.toLowerCase()
+		.split(' ')
+		.map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+		.join(' ');
+};

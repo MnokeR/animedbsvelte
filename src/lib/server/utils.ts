@@ -86,14 +86,16 @@ export const mangaOptions = {
 };
 
 // FETCH OPTIONS FOR MEDIA PAGES
-type DetailsOptions = {
-	id: number;
-	mediaType: 'ANIME' | 'MANGA';
+type MediaOptions = {
+	mediaId: string;
+	mediaType: 'Anime' | 'Manga';
 };
-export const detailsOptions = ({ id, mediaType }: DetailsOptions) => {
+export const mediaOptions = ({ mediaId, mediaType }: MediaOptions) => {
+	const type = mediaType.toUpperCase();
+	const id = Number(mediaId);
 	const variables = {
 		id,
-		type: mediaType
+		type
 	};
 
 	const options = {

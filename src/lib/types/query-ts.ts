@@ -64,7 +64,7 @@ export type SearchableParams = {
 }[];
 
 export type MediaPage = {
-	Media: MediaDetails;
+	data: { Media: MediaDetails };
 };
 
 export type MediaDetails = {
@@ -102,7 +102,7 @@ export type MediaDetails = {
 	volumes: number;
 };
 
-type Characters = {
+export type Characters = {
 	edges: {
 		id: number;
 		role: string;
@@ -115,7 +115,7 @@ type Characters = {
 	}[];
 };
 
-type Relations = {
+export type Relations = {
 	edges: {
 		id: number;
 		relationType: string;
@@ -132,7 +132,7 @@ type Relations = {
 				large: string;
 			};
 		};
-	};
+	}[];
 };
 
 type Studios = {
@@ -145,7 +145,7 @@ type Studios = {
 	}[];
 };
 
-type Recommendations = {
+export type Recommendations = {
 	nodes: {
 		id: number;
 		rating: number;
