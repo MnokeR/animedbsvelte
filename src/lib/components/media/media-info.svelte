@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type { MediaDetails } from '$lib/types/query-ts';
+	import LazyLoad from '../lazy-load.svelte';
 	import {
 		Characters,
 		Description,
@@ -24,5 +25,7 @@
 <Relations relations={media.relations} />
 <Recommendations recommendations={media.recommendations} />
 {#if media.trailer}
-	<Trailer trailer={media.trailer} />
+	<LazyLoad>
+		<Trailer trailer={media.trailer} />
+	</LazyLoad>
 {/if}
