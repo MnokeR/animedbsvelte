@@ -150,3 +150,27 @@ export const reFormat = (string: string) => {
 		.map((word) => word.charAt(0).toUpperCase() + word.slice(1))
 		.join(' ');
 };
+
+export const lazyLoad = (callback: () => void) => {
+	const options = {
+		root: null,
+		rootMargin: '0px',
+		threshold: 0.1
+	};
+	return (element: HTMLElement) => {
+		const observer = new IntersectionObserver((entries) => {
+			const [entry] = entries;
+			if (entry.isIntersecting) {
+				callback();
+				observer.unobserve(element);
+			}
+		}, options);
+		observer.observe(element);
+
+		return {
+			destroy() {
+				observer.disconnect();
+			}
+		};
+	};
+};

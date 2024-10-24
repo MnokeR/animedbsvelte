@@ -1,6 +1,13 @@
 <script lang="ts">
 	import type { MediaDetails } from '$lib/types/query-ts';
-	import { Characters, Description, Information, Recommendations, Relations } from './index';
+	import {
+		Characters,
+		Description,
+		Information,
+		Recommendations,
+		Relations,
+		Trailer
+	} from './index';
 
 	let { media }: { media: MediaDetails } = $props();
 </script>
@@ -16,3 +23,6 @@
 <Characters characters={media.characterPreview} />
 <Relations relations={media.relations} />
 <Recommendations recommendations={media.recommendations} />
+{#if media.trailer}
+	<Trailer trailer={media.trailer} />
+{/if}

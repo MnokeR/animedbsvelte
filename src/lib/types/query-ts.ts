@@ -135,7 +135,7 @@ export type Relations = {
 	}[];
 };
 
-type Studios = {
+export type Studios = {
 	edges: {
 		isMain: boolean;
 		node: {
