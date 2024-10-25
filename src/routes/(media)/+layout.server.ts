@@ -1,7 +1,7 @@
 import type { MediaPage } from '$lib/types/query-ts';
-import type { LayoutLoad } from './$types';
+import type { LayoutServerLoad } from './$types';
 
-export const load: LayoutLoad = async ({ url, params, fetch }) => {
+export const load: LayoutServerLoad = async ({ url, params, fetch }) => {
 	const mediaId = params.slug;
 	const mediaType = url.pathname.includes('/anime') ? 'Anime' : 'Manga';
 	try {

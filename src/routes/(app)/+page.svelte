@@ -8,12 +8,21 @@
 	import Loader from '$lib/components/loader.svelte';
 
 	let { data } = $props();
-	let anime = $state(true),
-		manga = $state<boolean>();
+	let mediaType = $state<'Anime' | 'Manga'>('Anime');
 
 	function changeMedia() {
-		anime ? (anime = !anime) : manga ? (manga = !manga) : null;
+		mediaType = mediaType === 'Anime' ? 'Manga' : 'Anime';
+		sessionStorage.setItem('mediaType', mediaType);
 	}
+
+	$effect(() => {
+		if (typeof window !== 'undefined') {
+			const savedMediaType = sessionStorage.getItem('mediaType');
+			if (savedMediaType) {
+				mediaType = savedMediaType as 'Anime' | 'Manga';
+			}
+		}
+	});
 </script>
 
 <svelte:head>
@@ -51,25 +60,29 @@
 	</div>
 {/snippet}
 <div class="relative flex gap-4 border-b-2 border-sky-500 pl-2 my-4">
-	<Button size="sm" variant="ghost" disabled={anime} onclick={changeMedia}>Anime</Button>
-	<Button size="sm" variant="ghost" disabled={manga} onclick={changeMedia}>Manga</Button>
+	<Button size="sm" variant="ghost" disabled={mediaType === 'Anime'} onclick={changeMedia}
+		>Anime</Button
+	>
+	<Button size="sm" variant="ghost" disabled={mediaType === 'Manga'} onclick={changeMedia}
+		>Manga</Button
+	>
 </div>
 {#await data.data}
 	<Loader />
 {:then data}
-	{#if anime && data?.anime.data}
+	{#if mediaType === 'Anime' && data?.anime.data}
 		<section
 			in:fly={{ delay: 100, duration: 200, easing: cubicOut, x: '-100%', opacity: 1 }}
 			out:fly={{ delay: 0, duration: 200, easing: cubicOut, x: '-100%', opacity: 1 }}
-			onoutroend={() => (manga = true)}
+			onoutroend={() => (mediaType = 'Manga')}
 		>
 			{@render categories(animeCategories, data.anime.data)}
 		</section>
-	{:else if manga && data?.manga.data}
+	{:else if mediaType === 'Manga' && data?.manga.data}
 		<section
 			in:fly={{ delay: 100, duration: 200, easing: cubicOut, x: '100%', opacity: 1 }}
 			out:fly={{ delay: 0, duration: 200, easing: cubicOut, x: '100%', opacity: 1 }}
-			onoutroend={() => (anime = true)}
+			onoutroend={() => (mediaType = 'Anime')}
 		>
 			{@render categories(mangaCategories, data.manga.data)}
 		</section>

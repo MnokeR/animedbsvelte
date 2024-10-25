@@ -1,7 +1,6 @@
 <script lang="ts">
-	import { scale } from 'svelte/transition';
+	import { fade, scale } from 'svelte/transition';
 	import Skeleton from './ui/skeleton/skeleton.svelte';
-	import { goto } from '$app/navigation';
 
 	type ListCardProps = {
 		id: number;
@@ -27,11 +26,10 @@
 					alt={`${title} cover`}
 					width="282"
 					height="200"
-					class="object-cover w-[180px] h-[254px] sm:w-[186px] sm:h-[262px] md:w-[200px] md:h-[282px] lg:w-[156px] lg:h-[220px] xl:w-[200px] xl:h-[282px] {imagesLoaded
-						? 'visble'
-						: 'hidden'}"
+					class="object-cover w-[180px] h-[254px] sm:w-[186px] sm:h-[262px] md:w-[200px] md:h-[282px] lg:w-[156px] lg:h-[220px] xl:w-[200px] xl:h-[282px] ${imagesLoaded
+						? 'opacity-1'
+						: 'opacity-0'}"
 					onload={() => (imagesLoaded = true)}
-					transition:scale
 				/></a
 			>
 		{/key}
