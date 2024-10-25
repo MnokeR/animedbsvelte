@@ -1,8 +1,8 @@
 import { getParams } from '$lib/client/utils';
 import type { SearchResults } from '$lib/types/query-ts';
-import type { LayoutLoad } from './$types';
+import type { LayoutServerLoad } from './$types';
 
-export const load: LayoutLoad = async ({ fetch, url }) => {
+export const load: LayoutServerLoad = async ({ fetch, url }) => {
 	const searchParams = url.searchParams;
 	const params = getParams(searchParams);
 	const search = url.pathname + url.search;

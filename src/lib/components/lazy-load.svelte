@@ -19,7 +19,7 @@
 		observer = new IntersectionObserver(onIntersect, {
 			root: null,
 			rootMargin: '0px',
-			threshold: 0.1
+			threshold: 0
 		});
 		observer.observe(sentinal);
 

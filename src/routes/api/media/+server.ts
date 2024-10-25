@@ -1,7 +1,7 @@
 import { mediaOptions } from '$lib/server/utils.js';
 import { json } from '@sveltejs/kit';
 
-const cacheTtl = 60 * 60 * 24;
+const cacheTtl = 60 * 60;
 
 export async function POST({ platform, request }) {
 	const apiCache = platform?.env.API_CACHE;
