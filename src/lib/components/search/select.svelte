@@ -22,7 +22,9 @@
 	let param = options.param ? options.param : options.title.toLowerCase();
 	let paramValue = $state(searchParams.get(param));
 
-	let value = $state<string[]>(paramValue ? [paramValue] : []);
+	let value = $state<string[]>(
+		paramValue && !multiple ? [paramValue] : paramValue && multiple ? paramValue.split(',') : []
+	);
 	let isActive = $derived(value.length > 0);
 
 	let selected = $derived.by(() => {

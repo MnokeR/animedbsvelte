@@ -2,7 +2,9 @@
 	import { reFormat } from '$lib/client/utils';
 	import type { MediaDetails } from '$lib/types/query-ts';
 	import { countDown } from '$lib/utils/index';
+	import { episodeRange } from '../search/range-options';
 	import Badge from '../ui/badge/badge.svelte';
+	import { InfoItem } from './index';
 
 	let { media }: { media: MediaDetails } = $props();
 	const nextEpisodeDate = media?.nextAiringEpisode?.airingAt;
@@ -13,26 +15,15 @@
 	countDown(timeTillNextEpisode, (time) => {
 		nextEpisodeTimer = `${time.days} : ${time.hours < 10 ? '0' + time.hours : time.hours} : ${time.minutes < 10 ? '0' + time.minutes : time.minutes} : ${time.seconds < 10 ? '0' + time.seconds : time.seconds}`;
 	});
+	console.log(media);
 </script>
-
-{#snippet info(title: string, info: string | number, format = true)}
-	{#if info}
-		<div class="mb-1 flex justify-between items-center bg-secondary p-2 rounded-md">
-			<p class="flex-none w-32 text-muted-foreground font-semibold">{title}</p>
-			<p class="flex-1 text-sm text-muted-foreground">
-				{format && typeof info === 'string' ? reFormat(info) : info}
-			</p>
-		</div>
-	{/if}
-{/snippet}
 
 <section class="m-2 bg-secondary/60 rounded-md p-4 flex">
 	<div class="flex md:gap-4 flex-col md:flex-row w-full">
 		<div class="flex-1">
-			{@render info('Status', media?.status)}
+			<InfoItem label="Status" info={media.status} format />
 			{#if media.nextAiringEpisode !== null}
-				<div class="mb-1 flex justify-between items-center bg-secondary p-2 rounded-md">
-					<p class="flex-none w-32 text-muted-foreground font-semibold">Next Episode</p>
+				<InfoItem label="Next Episode">
 					<p class="flex-1 text-sm text-muted-foreground">
 						{media.nextAiringEpisode.episode}
 						<Badge
@@ -41,28 +32,39 @@
 							>{nextEpisodeTimer}</Badge
 						>
 					</p>
-				</div>
+				</InfoItem>
 			{/if}
-			{@render info('Episodes', media?.episodes, false)}
-			{@render info('Format', media?.format)}
-			{@render info('Source', media?.source)}
-			{@render info('Season', media?.season)}
-			{@render info('Year', media?.seasonYear)}
-			{@render info('Season', media?.chapters)}
+
+			<InfoItem label="Episodes" info={media.episodes} />
+			<InfoItem label="Format" info={media.format} format />
+			<InfoItem label="Source" info={media.source} format />
+			<InfoItem label="Chapters" info={media.chapters} />
+			<InfoItem label="Volumes" info={media.volumes} />
+			<InfoItem label="Year" info={media.seasonYear} />
+			<InfoItem label="Season" info={media.season} format />
+			<InfoItem label="Start Date" info={media.startDate} />
+			<InfoItem label="End Date" info={media.endDate} />
 		</div>
 		<div class="flex-1">
-			{@render info('Native', media?.title?.native, false)}
-			{@render info('Romaji', media?.title?.userPreferred, false)}
-			{@render info('English', media?.title?.english, false)}
-			{@render info('Country', media?.countryOfOrigin)}
-			<div class="mb-1 flex justify-between items-center bg-secondary p-2 rounded-md">
-				<p class="flex-none w-32 text-muted-foreground font-semibold">Studios</p>
-				<div class="flex-1">
-					{#each media.studios.edges as item}
-						<p class="text-sm text-muted-foreground">{item.node.name}</p>
-					{/each}
-				</div>
-			</div>
+			<InfoItem label="Native" info={media.title.native} />
+			<InfoItem label="Romaji" info={media.title.userPreferred} />
+			<InfoItem label="English" info={media.title.english} />
+			<InfoItem label="Country" info={media.countryOfOrigin} />
+
+			{#if media.studios.edges.length > 0}
+				<InfoItem label="Studios">
+					<div class="flex-1">
+						{#each media.studios.edges as item}
+							<p class="text-sm text-muted-foreground">
+								{item.node.name}
+								{#if item.isMain}
+									<span class="text-sky-500">Main</span>
+								{/if}
+							</p>
+						{/each}
+					</div>
+				</InfoItem>
+			{/if}
 		</div>
 	</div>
 </section>

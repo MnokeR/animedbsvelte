@@ -12,19 +12,19 @@ export const yearRange: RangeType = {
 	param: 'yearRange'
 };
 export const episodeRange: RangeType = {
-	min: 1,
+	min: 0,
 	max: 200,
 	label: 'Episodes',
 	param: 'episodeRange'
 };
 export const durationRange: RangeType = {
-	min: 1,
+	min: 0,
 	max: 170,
 	label: 'Duration',
 	param: 'durationRange'
 };
 export const chapterRange: RangeType = {
-	min: 1,
+	min: 0,
 	max: 500,
 	label: 'Chapters',
 	param: 'chapterRange'

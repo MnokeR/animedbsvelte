@@ -42,6 +42,11 @@
 					>{genre}</Badge
 				>
 			{/each}
+			<Badge
+				variant="default"
+				href={`/search/${media.type.toLowerCase()}?genres=${media.genres.toString().split(',').join('%2C')}`}
+				>Match All</Badge
+			>
 		</div>
 	</div>
 </section>
