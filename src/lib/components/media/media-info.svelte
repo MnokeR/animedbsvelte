@@ -15,7 +15,7 @@
 
 {#if media.bannerImage}
 	<section class="hidden md:block">
-		<img src={media.bannerImage} alt="Banner" />
+		<img src={media.bannerImage} alt="Banner" class="w-full max-h-[270px] object-cover" />
 	</section>
 {/if}
 

@@ -49,6 +49,11 @@ export type SearchVariables = {
 	countryOfOrigin: string | undefined;
 	isAdult: string | undefined;
 	sort: string | undefined;
+	yearRange: string | undefined;
+	episodeRange: string | undefined;
+	durationRange: string | undefined;
+	chapterRange: string | undefined;
+	volumeRange: string | undefined;
 };
 
 export type SearchableParams = {

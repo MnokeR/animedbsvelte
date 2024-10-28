@@ -10,9 +10,9 @@
 	let { setParams }: InputProps = $props();
 </script>
 
-<div class="relative">
+<div class="relative w-full">
 	<Input
-		class="text-sky-500 w-[408px] sm:w-[368px] pl-7"
+		class="text-sky-500 w-full sm:w-[368px] pl-7"
 		type="search"
 		autocomplete="off"
 		name="search"

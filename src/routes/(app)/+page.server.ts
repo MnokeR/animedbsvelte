@@ -1,5 +1,4 @@
 import type { Anime, Manga } from '$lib/types/query-ts';
-import type { PageLoad } from './$types';
 import type { PageServerLoad } from './search/$types';
 
 export const load: PageServerLoad = async ({ fetch }) => {

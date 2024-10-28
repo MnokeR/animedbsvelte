@@ -24,7 +24,7 @@
 			<img src={media.coverImage.large} alt="Cover" />
 			{#if media.averageScore}
 				<div class="absolute -top-2 left-[50%] translate-x-[-50%]">
-					<span class={`text-2xl px-2 rounded-md shadow text-white ${style}`}
+					<span class={`text-2xl px-2 py-1 rounded-md shadow text-white ${style}`}
 						>{media.averageScore}</span
 					>
 				</div>

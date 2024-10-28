@@ -8,9 +8,7 @@ export const load: LayoutServerLoad = async ({ fetch, url }) => {
 	const search = url.pathname + url.search;
 	const mediaType = url.pathname.includes('/anime') ? 'Anime' : 'Manga';
 	const hasParams = [...searchParams.keys()].length > 0;
-
 	if (!hasParams) return;
-
 	try {
 		const response = await fetch('/api/search', {
 			method: 'POST',

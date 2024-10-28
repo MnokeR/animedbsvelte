@@ -121,8 +121,27 @@ type SearchOptionsParams = {
 };
 
 export const searchOptions = ({ params, pageInfo, mediaType }: SearchOptionsParams) => {
-	const genres = params.genres ? params.genres.split(',').map((item) => item.trim()) : undefined;
 	const adult = params.isAdult === 'True' ? true : false;
+	const genres = params.genres ? params.genres.split(',').map((item) => item.trim()) : undefined;
+	const [yearGreater, yearLesser] = params.yearRange
+		? params?.yearRange.split(',').map((year) => Number(year + '0000')) || [undefined, undefined]
+		: [undefined, undefined];
+	const [episodeGreater, episodeLesser] = params.episodeRange?.split(',').map(Number) || [
+		undefined,
+		undefined
+	];
+	const [durationGreater, durationLesser] = params.durationRange?.split(',').map(Number) || [
+		undefined,
+		undefined
+	];
+	const [chapterGreater, chapterLesser] = params.chapterRange?.split(',').map(Number) || [
+		undefined,
+		undefined
+	];
+	const [volumeGreater, volumeLesser] = params.volumeRange?.split(',').map(Number) || [
+		undefined,
+		undefined
+	];
 	const variables = {
 		page: pageInfo ? pageInfo.currentPage + 1 : 1,
 		type: mediaType === 'Anime' ? 'ANIME' : 'MANGA',
@@ -134,7 +153,17 @@ export const searchOptions = ({ params, pageInfo, mediaType }: SearchOptionsPara
 		status: params.status,
 		countryOfOrigin: params.countryOfOrigin,
 		isAdult: adult,
-		sort: params.sort ? params.sort : params.search ? 'SEARCH_MATCH' : undefined
+		sort: params.sort ? params.sort : params.search ? 'SEARCH_MATCH' : undefined,
+		yearGreater,
+		yearLesser,
+		episodeGreater,
+		episodeLesser,
+		durationGreater,
+		durationLesser,
+		chapterGreater,
+		chapterLesser,
+		volumeGreater,
+		volumeLesser
 	};
 	const options = {
 		method: 'post',
@@ -159,7 +188,12 @@ export const searchableParams = [
 	'status',
 	'countryOfOrigin',
 	'isAdult',
-	'sort'
+	'sort',
+	'yearRange',
+	'episodeRange',
+	'durationRange',
+	'chapterRange',
+	'volumeRange'
 ];
 
 export const getParams = (searchParam: URLSearchParams) => {

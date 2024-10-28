@@ -116,6 +116,9 @@ export const selectSort: Options = {
 	items: [
 		{ label: 'Popularity', value: 'POPULARITY_DESC' },
 		{ label: 'Trending', value: 'TRENDING_DESC' },
-		{ label: 'Score', value: 'SCORE_DESC' }
+		{ label: 'Average Score', value: 'SCORE_DESC' },
+		{ label: 'Title', value: 'TITLE_ROMAJI' },
+		{ label: 'Release Date', value: 'START_DATE_DESC' },
+		{ label: 'Date Added', value: 'ID_DESC' }
 	]
 };
